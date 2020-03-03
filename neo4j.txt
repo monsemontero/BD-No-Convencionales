@@ -1,0 +1,52 @@
+
+CREATE (p1:Profesor {numPersonal: 10,nombre:'Lorena Alonso Ramirez'})
+CREATE (p2:Profesor {numPersonal: 20,nombre:'Edgard Benitez'})
+
+CREATE (e1:Examen {nombre:'SQL', grado:'medio'})
+CREATE (e2: Examen {nombre:'Mongo', grado:'alto'})
+
+CREATE (a1:Alumno {nombre:'Monserrat',calificacion:9})
+CREATE (a2:Alumno {nombre:'Juan', calificacion:8})
+CREATE (a3:Alumno {nombre:'Andres', calificacion:6})
+CREATE (a4:Alumno {nombre:'Hugo', calificacion:7})
+CREATE (a5:Alumno {nombre:'Natalia', calificacion:7})
+CREATE (a6:Alumno {nombre:'Miriam', calificacion:10})
+CREATE (a7:Alumno {nombre:'Jose', calificacion:5})
+
+match (a2:Alumno {nombre:'Juan', calificacion:8})
+match  (a3:Alumno {nombre:'Andres', calificacion:6})
+match (a6:Alumno {nombre:'Miriam', calificacion:10})
+match (e1:Examen {nombre:'SQL', grado:'medio'})
+match (e2: Examen {nombre:'Mongo', grado:'alto'})
+
+CREATE
+   (a2)-[:Presenta {tipo:['Ordinario']}]->(e1),
+   (a3)-[:Presenta {tipo:['Extraordinario']}]->(e2),
+   (a6)-[:Presenta {tipo:['Ordinario']}]->(e1)
+
+CREATE
+  (p1)-[:Diseña{ numPreguntas: 50}]->(e2),
+  (p2)-[:Diseña{ numPreguntas:100}]->(e1)
+
+
+>>>>>>>>>>>>>>Modificar un Nodo<<<<<<<<<<<<<<<<<<<<
+MERGE (a1:Alumno {nombre: 'Monserrat'}) SET a1.edad = 24, a1.semestre = 'Cuarto' RETURN a1
+MERGE (a2:Alumno {nombre: 'Juan'}) SET a2.nombre:'Juan Pablo? RETURN a2
+
+MERGE (p:Person {name: 'Paco'}) SET p.age = 34, p.coat = 'Yellow' RETURN p
+MERGE (a7:Alumno {nombre: 'Jose'}) SET a1.edad = 24, a1.semestre = 'Sexto' RETURN a7
+
+
+>>>>>>>>>>>>>>Modificar propiedades a una relación<<<<<<<<<<<<<<<<
+MERGE (a2)-[r:Presenta]->(Juan) SET r.tipo = 'Extraordinario' RETURN r
+
+>>>>>>>>>>>>>>Borrar nodo<<<<<<<<<<<<<<<
+MATCH (p1:Profesor {nombre: 'Lorena Alonso Ramirez'}) DELETE p1
+
+
+
+
+https://neo4j.com/sandbox-v2/
+
+
+
